@@ -25,7 +25,7 @@ class UserController extends Controller
             if (Functions::exception($result)) {
                 throw new Exception($result->getMessage(), is_string($result->getCode()) ? (int)$result->getCode() : $result->getCode());
             } else {
-                return view('v1.organizer.organizer_index');
+                return redirect(route('admin.v1.dashboard'))->with('success','Login Berhasil');
             }
         } catch (Exception $err) {
             return back()->withInput()->with('error', $err->getMessage());
@@ -46,6 +46,16 @@ class UserController extends Controller
             } else {
                 return redirect(route('admin.v1.dashboard'))->with('success','Login Berhasil');
             }
+        } catch (Exception $err) {
+            return back()->withInput()->with('error', $err->getMessage());
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        try {
+            $request->session()->flush();
+            return redirect(url('/'))->with('success','Logout Berhasil');
         } catch (Exception $err) {
             return back()->withInput()->with('error', $err->getMessage());
         }
