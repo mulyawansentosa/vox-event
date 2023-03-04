@@ -59,6 +59,7 @@ class UserTest extends TestCase
         $response = $this->post('/register',$this->user);
         $response->assertStatus(302)
         ->assertRedirect('/');
+        sleep(5);
     }
 
     public function test_user_see_error_validation_on_registration_form()
@@ -70,7 +71,6 @@ class UserTest extends TestCase
             'password' => '',
             'repeatPassword' => ''
         ];
-
         $response = $this->post('/register',$user);
         $response->assertStatus(302)
         ->assertRedirect('/')
@@ -79,7 +79,6 @@ class UserTest extends TestCase
 
     public function test_user_can_access_login_form()
     {
-        dd($this->user);
         $response = $this->get('/');
         $response->assertStatus(200)
         ->assertSee('Email')
@@ -88,15 +87,15 @@ class UserTest extends TestCase
         ->assertSee('Register');
     }
 
-    // public function test_user_can_login()
-    // {
-    //     $response = $this->post('/login',[
-    //         'email' => $this->user['email'],
-    //         'password' => $this->user['password']
-    //     ]);
-    //     dd($response);
-    //     $response->assertStatus(302)
-    //     ->assertRedirect('/admin/v1/dashboard')
-    //     ->assertSessionHas('success');
-    // }
+    public function test_user_can_login()
+    {
+        var_dump($this->user);
+        $response = $this->post('/login',[
+            'email' => $this->user['email'],
+            'password' => $this->user['password']
+        ]);
+        $response->assertStatus(302)
+        ->assertRedirect('/admin/v1/dashboard')
+        ->assertSessionHas('success');
+    }
 }
