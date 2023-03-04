@@ -78,8 +78,8 @@ class UserService
                 $arr[$key] = $value;
             }
             $result = $this->api->auth('api/v1/users/login', $arr);
-            if (isset($result['error'])) {
-                throw new Exception($result['error']);
+            if (isset($result['error']) || isset($result['message'])) {
+                throw new Exception((isset($result['error'])) ? $result['error'] : $result['message']);
             } else {
                 return session([
                     'token' => $result['token'],
