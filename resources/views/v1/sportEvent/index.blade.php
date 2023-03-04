@@ -12,7 +12,7 @@
     @endif
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Organizer Management</h1>
+        <h1 class="h3 mb-0 text-gray-800">Sport Events Management</h1>
         <div class="d-none d-sm-inline-block">
         </div>
     </div>
@@ -22,20 +22,31 @@
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Organizer List</h6>
-                    <div class="btn-group btn-sm nospiner" >
-                        <a  href="{{ route('admin.v1.organizer.create') }}"  class="btn btn-success btn-sm" >
-                            <i class="fas fa-fw fa-plus"></i> Add Data
-                        </a>
-                    </div> 
+                    <h6 class="m-0 font-weight-bold text-primary">Sport Events List</h6>
+                    <div class="justify-content-end gap-1">
+                        <div class="btn-group btn-sm nospiner">
+                            <a  href="{{ route('admin.v1.sport-events.create') }}"  class="btn btn-success btn-sm" >
+                                <i class="fas fa-fw fa-plus"></i> Add Data
+                            </a>
+                        </div> 
+                        @if (isset($_GET['organizerId']))
+                        <div class="btn-group btn-sm nospiner">
+                            <a  href="{{ route('admin.v1.organizer.index') }}"  class="btn btn-danger btn-sm" >
+                                <i class="fas fa-fw fa-arrow-left"></i> Back
+                            </a>
+                        </div> 
+                        @endif
+                    </div>
                 </div>
                 <div class="card-body" style="overflow-x:auto;padding:20px;">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Event Date</th>
+                                <th>Event Name</th>
+                                <th>Event Type</th>
                                 <th>Organizer Name</th>
-                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -43,17 +54,18 @@
                             @foreach ($datas as $data)
                             <tr>
                                 <td>{{ ($pagination['current_page'] - 1) * $pagination['per_page'] + $loop->iteration }}</td>
-                                <td>{{ $data['organizerName'] }}</td>
-                                <td><img src="{{ $data['imageLocation'] }}" width="200"></td>
+                                <td>{{ $data['eventDate'] }}</td>
+                                <td>{{ $data['eventName'] }}</td>
+                                <td>{{ $data['eventType'] }}</td>
+                                <td>{{ $data['organizer']['organizerName'] }}</td>
                                 <td align="center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Action
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a href="{{ route('admin.v1.sport-events.index',['organizerId' => $data['id']]) }}" class="dropdown-item">Sport Events</a>
-                                            <a href="{{ route('admin.v1.organizer.edit',$data['id']) }}" class="dropdown-item">Edit</a>
-                                            <a href="{{ route('admin.v1.organizer.delete',$data['id']) }}" onclick="return confirm('Confirm Delete')" class="dropdown-item">Delete</a>                                              
+                                            <a href="{{ route('admin.v1.sport-events.edit',$data['id']) }}" class="dropdown-item">Edit</a>
+                                            <a href="{{ route('admin.v1.sport-events.delete',$data['id']) }}" onclick="return confirm('Confirm Delete')" class="dropdown-item">Delete</a>                                              
                                         </div>
                                     </div>
                                 </td>
@@ -65,12 +77,12 @@
                         <ul class="pagination justify-content-center">
                             @if(isset($pagination['current_page']))
                                 @if((isset($pagination['links']['next'])) && (!isset($pagination['links']['previous'])))
-                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.organizer.index',['page' => $pagination['current_page'] + 1]) }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.sport-events.index',(isset($_GET['organizerId'])) ? ['organizerId' => $_GET['organizerId'],'page' => $pagination['current_page'] + 1] : ['page' => $pagination['current_page'] + 1]) }}">Next</a></li>
                                 @elseif((!isset($pagination['links']['next'])) && (isset($pagination['links']['previous'])))
-                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.organizer.index',['page' => $pagination['current_page'] - 1]) }}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.sport-events.index',(isset($_GET['organizerId'])) ? ['organizerId' => $_GET['organizerId'],'page' => $pagination['current_page'] - 1] : ['page' => $pagination['current_page'] - 1]) }}">Previous</a></li>
                                 @elseif((isset($pagination['links']['next'])) && (isset($pagination['links']['previous'])))
-                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.organizer.index',['page' => $pagination['current_page'] - 1]) }}">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.organizer.index',['page' => $pagination['current_page'] + 1]) }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.sport-events.index',(isset($_GET['organizerId'])) ? ['organizerId' => $_GET['organizerId'],'page' => $pagination['current_page'] - 1] : ['page' => $pagination['current_page'] - 1]) }}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{ route('admin.v1.sport-events.index',(isset($_GET['organizerId'])) ? ['organizerId' => $_GET['organizerId'],'page' => $pagination['current_page'] + 1] : ['page' => $pagination['current_page'] + 1]) }}">Next</a></li>
                                 @endif
                             @endif
                         </ul>
