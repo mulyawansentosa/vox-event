@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="name@example.com" value="{{ old('email') }}">
-                        <label for="floatingInput">Email address</label>
+                        <label for="floatingInput">Email Address</label>
                         @error('firstName')
                             <div class="text-danger">
                                 <strong>- {{ $message }}</strong>

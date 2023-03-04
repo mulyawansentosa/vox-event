@@ -78,6 +78,7 @@ class UserService
                 $arr[$key] = $value;
             }
             $result = $this->api->auth('api/v1/users/login', $arr);
+            dd($result);
             if (isset($result['error'])) {
                 throw new Exception($result['error']);
             } else {

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\User\Web\V1\UserController;
 use Illuminate\Support\Facades\Route;
+use Faker\Factory as Faker;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('v1.auth.login');
 });
+
 Route::get('/register', function () {
     return view('v1.auth.register');
 });
-Route::post('login', [UserController::class, 'login'])->name('login');
-Route::post('register', [UserController::class, 'register'])->name('register');
-Route::post('logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('/test', function () {
+    $faker = Faker::create();
+    $user = [
+        'firstName' => $faker->firstName(),
+        'lastName' => $faker->lastName(),
+        'email' => $faker->email(),
+        'password' => $faker->regexify('[A-Z]{2}[a-z]{2}[0-9]{2}[#$%^&*()+=-\;,./{}|\:<>?~]{2}')
+    ];
+
+    return $user;
+});
+
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/register', [UserController::class, 'register'])->name('register');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'token.session'],function(){
     Route::group(['prefix' => 'v1'],function(){

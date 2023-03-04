@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UserRegisterRequest extends FormRequest
 {
@@ -25,7 +26,12 @@ class UserRegisterRequest extends FormRequest
             "firstName" => "required|string|min:3",
             "lastName" => "required|string|min:3",
             "email" => "required|email:dns",
-            "password" => "required|min:8|string",
+            "password" => Password::min(8)
+            ->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+            ->uncompromised(),
             "repeatPassword" => "required|min:8|string|same:password"
         ];
     }

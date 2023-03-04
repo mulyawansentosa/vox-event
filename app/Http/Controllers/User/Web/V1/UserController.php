@@ -114,7 +114,7 @@ class UserController extends Controller
             if (Functions::exception($result)) {
                 throw new Exception($result->getMessage(), is_string($result->getCode()) ? (int)$result->getCode() : $result->getCode());
             } else {
-                return redirect(url('/'))->with('success','Register Success, Please Login');
+                return redirect(url('/'))->with('success','Register Success, please Login');
             }
         } catch (Exception $err) {
             return back()->withInput()->with('error', $err->getMessage());
