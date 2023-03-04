@@ -20,6 +20,11 @@
             <i class="fas fa-fw fa-cogs"></i>
             <span>Organizer</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.v1.sport-events.index') }}">
+            <i class="fas fa-fw fa-cogs"></i>
+            <span>Sport Event</span></a>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">

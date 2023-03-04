@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Web\V1\UserController;
 use App\Http\Controllers\Organizer\Web\V1\OrganizerController;
+use App\Http\Controllers\SportEvent\Web\V1\SportEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'token.session'],function(){
             Route::get('{id}/edit', [OrganizerController::class, 'edit'])->name('admin.v1.organizer.edit');
             Route::put('{id}/update', [OrganizerController::class, 'update'])->name('admin.v1.organizer.update');
             Route::get('{id}/delete', [OrganizerController::class, 'delete'])->name('admin.v1.organizer.delete');
+        });
+        Route::group(['prefix' => 'sport-events'],function(){
+            Route::get('', [SportEventController::class, 'index'])->name('admin.v1.sport-events.index');
+            Route::get('{id}/show', [SportEventController::class, 'show'])->name('admin.v1.sport-events.show');
+            Route::get('create', [SportEventController::class, 'create'])->name('admin.v1.sport-events.create');
+            Route::post('store', [SportEventController::class, 'store'])->name('admin.v1.sport-events.store');
+            Route::get('{id}/edit', [SportEventController::class, 'edit'])->name('admin.v1.sport-events.edit');
+            Route::put('{id}/update', [SportEventController::class, 'update'])->name('admin.v1.sport-events.update');
+            Route::get('{id}/delete', [SportEventController::class, 'delete'])->name('admin.v1.sport-events.delete');
         });
     });
 });
