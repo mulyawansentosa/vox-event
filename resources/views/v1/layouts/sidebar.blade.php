@@ -10,10 +10,20 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.v1.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.v1.organizer.index') }}">
+            <i class="fas fa-fw fa-cogs"></i>
+            <span>Organizer</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.v1.sport-events.index') }}">
+            <i class="fas fa-fw fa-cogs"></i>
+            <span>Sport Event</span></a>
         </li>
 
         <!-- Sidebar Toggler (Sidebar) -->

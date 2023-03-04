@@ -95,7 +95,7 @@ class UserController extends Controller
             if (Functions::exception($result)) {
                 throw new Exception($result->getMessage(), is_string($result->getCode()) ? (int)$result->getCode() : $result->getCode());
             } else {
-                return redirect(route('admin.v1.dashboard'))->with('success','Login Success');
+                return redirect(route('admin.v1.organizer.index'))->with('success','Login Success');
             }
         } catch (Exception $err) {
             return back()->withInput()->with('error', $err->getMessage());
