@@ -2,6 +2,8 @@
 namespace App\Helper;
 
 use Exception;
+use GuzzleHttp\Client;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 
 class ApiVox

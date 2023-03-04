@@ -24,14 +24,13 @@ Route::post('login', [UserController::class, 'login'])->name('login');
 Route::post('register', [UserController::class, 'register'])->name('register');
 Route::post('logout', [UserController::class, 'logout'])->name('logout');
 
-Route::group(['prefix' => 'admin', 'middleware' => function () {
-    if (!session()->has('token')) {
-        return redirect(url('/'))->with('error', 'Unauthorized');
-    }
-}],function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'token.session'],function(){
     Route::group(['prefix' => 'v1'],function(){
         Route::group(['prefix' => 'user'],function(){
-            Route::get('index', [UserController::class, 'index'])->name('admin.v1.user.index');
+            Route::get('', [UserController::class, 'index'])->name('admin.v1.user.index');
+            Route::put('update', [UserController::class, 'update'])->name('admin.v1.user.update');
+            Route::get('delete', [UserController::class, 'delete'])->name('admin.v1.user.delete');
+            Route::put('change_password', [UserController::class, 'changePassword'])->name('admin.v1.user.change_password');
         });
         Route::get('/dashboard', function () {
             return view('v1.organizer.organizer_index');
