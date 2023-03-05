@@ -110,4 +110,23 @@ class Ab_OrganizerTest extends TestCase
         $response->assertStatus(200)
         ->assertSee('value="'.self::$organizer['organizerName'].'"',false);
     }
+
+    public function test_user_can_update_organizer()
+    {
+        $faker = Faker::create();
+
+        $organizer = [
+            'organizerName' => $faker->name(),
+            'imageLocation' => UploadedFile::fake()->image('image.jpg')
+        ];
+
+        $response = $this->sign();
+        $response = $this->followingRedirects()
+        ->put('/admin/v1/organizer/'.self::$organizerId.'/update',$organizer);
+
+        self::$organizer['organizerName'] = $organizer['organizerName'];
+
+        $response->assertStatus(200)
+        ->assertSee('value="'.self::$organizer['organizerName'].'"',false);
+    }
 }
