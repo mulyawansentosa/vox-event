@@ -22,8 +22,8 @@ class Aa_UserTest extends TestCase
         $faker = Faker::create();
         $password = $faker->regexify('[0-9]{1}[!]{1}[A-Z]{1}[a-z]{4}[A-Z]{1}');
         $user = [
-            'firstName' => $faker->firstName(),
-            'lastName' => $faker->lastName(),
+            'firstName' => str_replace("'","",$faker->firstName()),
+            'lastName' => str_replace("'","",$faker->lastName()),
             'email' => $faker->email(),
             'password' => $password,
             'repeatPassword' => $password
@@ -106,6 +106,8 @@ class Aa_UserTest extends TestCase
 
         $response = $this->get('/admin/v1/user');
         $response->assertStatus(200)
+        // ->assertSee('value="'.self::$user['firstName'].'"',false)
+        // ->assertSee('value="'.self::$user['lastName'].'"',false)
         ->assertSee('value="'.self::$user['email'].'"',false);
     }
 
@@ -114,8 +116,8 @@ class Aa_UserTest extends TestCase
         $faker = Faker::create();
 
         $user = [
-            'firstName' => $faker->firstName(),
-            'lastName' => $faker->lastName(),
+            'firstName' => str_replace("'","",$faker->firstName()),
+            'lastName' => str_replace("'","",$faker->lastName()),
             'email' => $faker->email()
         ];
 

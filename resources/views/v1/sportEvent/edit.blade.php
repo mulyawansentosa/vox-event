@@ -22,11 +22,11 @@
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Sport Events Form</h6> 
+                    <h6 class="m-0 font-weight-bold text-primary">Sport Events Form</h6>
                 </div>
                 <div class="card-body" style="overflow-x:auto;padding:20px;">
                     <form method="POST" action="{{ route('admin.v1.sport-events.update',$data['id']) }}" enctype="multipart/form-data">
-                        @csrf  
+                        @csrf
                         @method('PUT')
                         <div class="form-group row">
                             <label for="eventDate" class="col-md-3 col-form-label text-md-right">{{ __('Event Date') }}</label>
@@ -66,7 +66,7 @@
                             <div class="col-md-8 mb-3 mb-sm-0">
                                 <select name="organizerId" id="organizerId"
                                     class="select2 form-control form-control-user @error('organizerId') is-invalid @enderror"
-                                    value="{{ $data['organizerId'] }}" autocomplete="organizerId">
+                                    value="{{ $data['organizer']['id'] }}" autocomplete="organizerId">
                                     <option value="" selected disabled>Pilih dari daftar</option>
                                     @foreach ($refs as $ref)
                                         <option value="{{ $ref['id'] }}" @if($data['organizer']['id'] == $ref['id']) selected @endif>{{ $ref['organizerName'] }}</option>

@@ -18,15 +18,14 @@ class Ab_OrganizerTest extends TestCase
     private static $user;
     private static $organizer;
     private static $organizerId;
-    private static $eventId;
 
     public static function setUpBeforeClass(): void
     {
         $faker = Faker::create();
         $password = $faker->regexify('[0-9]{1}[!]{1}[A-Z]{1}[a-z]{4}[A-Z]{1}');
         $user = [
-            'firstName' => $faker->firstName(),
-            'lastName' => $faker->lastName(),
+            'firstName' => str_replace("'","",$faker->firstName()),
+            'lastName' => str_replace("'","",$faker->lastName()),
             'email' => $faker->email(),
             'password' => $password,
             'repeatPassword' => $password
@@ -34,7 +33,7 @@ class Ab_OrganizerTest extends TestCase
         self::$user = $user;
 
         $organizer = [
-            'organizerName' => $faker->name(),
+            'organizerName' => str_replace("'","",$faker->name()),
             'imageLocation' => UploadedFile::fake()->image('image.jpg')
         ];
         self::$organizer = $organizer;
@@ -58,7 +57,6 @@ class Ab_OrganizerTest extends TestCase
         parent::setUp();
 
         self::$organizerId = getenv('ORGANIZER_ID');
-        self::$eventId = config('event.eventId');
 
     }
 
@@ -116,7 +114,7 @@ class Ab_OrganizerTest extends TestCase
         $faker = Faker::create();
 
         $organizer = [
-            'organizerName' => $faker->name(),
+            'organizerName' => str_replace("'","",$faker->name()),
             'imageLocation' => UploadedFile::fake()->image('image.jpg')
         ];
 
