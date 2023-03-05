@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UserChangePassRequest extends FormRequest
 {
@@ -25,7 +26,12 @@ class UserChangePassRequest extends FormRequest
     {
         return [
             "oldPassword" => "required|min:8|string",
-            "newPassword" => "required|min:8|string",
+            "password" => Password::min(8)
+            ->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+            ->uncompromised(),
             "repeatPassword" => "required|min:8|string|same:newPassword"
         ];
     }

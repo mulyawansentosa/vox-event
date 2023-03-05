@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Faker\Factory as Faker;
 use App\Http\Controllers\User\Web\V1\UserController;
 use App\Http\Controllers\Organizer\Web\V1\OrganizerController;
 use App\Http\Controllers\SportEvent\Web\V1\SportEventController;
@@ -23,18 +22,6 @@ Route::get('/', function () {
 
 Route::get('/register', function () {
     return view('v1.auth.register');
-});
-
-Route::get('/test', function () {
-    $faker = Faker::create();
-    $user = [
-        'firstName' => $faker->firstName(),
-        'lastName' => $faker->lastName(),
-        'email' => $faker->email(),
-        'password' => $faker->regexify('[A-Z]{2}[a-z]{2}[0-9]{2}[#$%^&*()+=-\;,./{}|\:<>?~]{2}')
-    ];
-
-    return $user;
 });
 
 Route::post('/login', [UserController::class, 'login'])->name('login');

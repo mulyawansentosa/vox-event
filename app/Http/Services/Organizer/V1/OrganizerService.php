@@ -43,6 +43,7 @@ class OrganizerService
             if (isset($result['message'])) {
                 throw new Exception($result['message']);
             } else {
+                config(['event.organizerId' => $result['id']]);
                 unlink(public_path('media/'.$image_path));
                 return $result;
             }
