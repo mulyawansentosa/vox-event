@@ -129,4 +129,13 @@ class Ab_OrganizerTest extends TestCase
         $response->assertStatus(200)
         ->assertSee('value="'.self::$organizer['organizerName'].'"',false);
     }
+
+    public function test_user_can_delete_organizer()
+    {
+        $response = $this->sign();
+        $response = $this->get('/admin/v1/organizer/'.self::$organizerId.'/delete');
+
+        $response->assertStatus(302)
+        ->assertRedirect('/admin/v1/organizer');
+    }
 }

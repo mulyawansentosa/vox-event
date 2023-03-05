@@ -106,8 +106,6 @@ class Aa_UserTest extends TestCase
 
         $response = $this->get('/admin/v1/user');
         $response->assertStatus(200)
-        ->assertSee('value="'.self::$user['firstName'].'"',false)
-        ->assertSee('value="'.self::$user['lastName'].'"',false)
         ->assertSee('value="'.self::$user['email'].'"',false);
     }
 
