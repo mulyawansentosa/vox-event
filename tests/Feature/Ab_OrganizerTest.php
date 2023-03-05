@@ -57,7 +57,7 @@ class Ab_OrganizerTest extends TestCase
     {
         parent::setUp();
 
-        self::$organizerId = config('event.organizerId');
+        self::$organizerId = getenv('ORGANIZER_ID');
         self::$eventId = config('event.eventId');
 
     }
@@ -106,12 +106,8 @@ class Ab_OrganizerTest extends TestCase
     {
         $response = $this->sign();
 
-        dd(self::$organizerId);
-        $response = $this->get('/admin/v1/organizer/'.config('event.organizerId').'/edit');
-        $response->assertStatus(200);
-        // ->assertSee('No',false)
-        // ->assertSee('Organizer Name',false)
-        // ->assertSee('Image',false)
-        // ->assertSee('Action',false);
+        $response = $this->get('/admin/v1/organizer/'.self::$organizerId.'/edit');
+        $response->assertStatus(200)
+        ->assertSee('value="'.self::$organizer['organizerName'].'"',false);
     }
 }

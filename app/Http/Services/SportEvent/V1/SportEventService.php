@@ -57,6 +57,7 @@ class SportEventService
             }
             $result = $this->api->post('api/v1/sport-events', $arr);
             if (isset($result['message'])) {
+                putenv('EVENT_ID='.$result['id']);
                 throw new Exception($result['message']);
             } else {
                 return $result;

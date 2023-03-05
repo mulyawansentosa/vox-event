@@ -43,7 +43,7 @@ class OrganizerService
             if (isset($result['message'])) {
                 throw new Exception($result['message']);
             } else {
-                config(['event.organizerId' => $result['id']]);
+                putenv('ORGANIZER_ID='.$result['id']);
                 unlink(public_path('media/'.$image_path));
                 return $result;
             }
